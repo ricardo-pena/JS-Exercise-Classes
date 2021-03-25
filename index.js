@@ -41,9 +41,30 @@ class Airplane {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- class Person {
-    
-  }
+          class Person {
+            constructor(name,age){
+            this.name = name;
+            this.age = age;
+            this.stomach = [];
+            }
+            eat(edible){
+              if(this.stomach.length < 10){
+                this.stomach.push(edible);  
+              }
+              return this.stomach;
+            }
+              poop(){
+                return this.stomach=[];
+              }
+              toString(){
+                return `${this.name}, ${this.age}`;
+              }
+          }
+          const ricky = new Person('Ricky',20);
+          
+          console.log('Task 1: ', ricky.toString());
+          console.log('Task 1: ', ricky.eat("food"));
+        console.log('Task 1 : ',ricky.poop());
   
   /*
     TASK 2
@@ -60,8 +81,34 @@ class Airplane {
   */
   
  class Car {
-    
+  constructor(model,mpg){
+     this.model = model;
+      this.milesPerGallon = mpg;
+      this.tank = 0;
+      this.odometer =0;
   }
+  fill(gallons){
+    this.tank += gallons;
+    return this.tank;
+  }
+  drive(distance){        
+    const drivableMiles = this.tank * this.milesPerGallon;
+    if(distance <= drivableMiles){
+      this.odometer = this.odometer + drivableMiles;
+      this.tank = this.tank - (distance / this.milesPerGallon);           
+    return `Odometer: ${this.odometer} Tank: ${this.tank}`
+    }else{
+        this.odometer = thi.odometer + drivableMiles;
+        this.tank = 0;
+        return  `I ran out of fuel at ${this.odometer} miles`;
+    }
+         
+  }
+ 
+}
+const ford = new Car("Ford", 20);
+console.log("Task 2:", ford.fill(50));
+console.log("Task 2:", ford.drive(50));
   
   /*
     TASK 3
@@ -76,6 +123,15 @@ class Airplane {
           + {name} and {location} of course come from the instance's own properties.
   */
  class Lambdasian {
+   constructor(human){
+    this.name = human.name;
+    this.age = human.age;
+    this.location = human.location;
+   }
+   speak(){
+     return `Hello my name is ${this.name}, I am from ${this.location}`
+   }
+  
     
   }
   
@@ -93,9 +149,34 @@ class Airplane {
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
- class Instructor {
+class Instructor extends Lambdasian {
+   constructor(human){
+     super(human)
+     this.specialty = human.specialty;
+     this.favLanguage = human.favLanguage;
+     this.catchPhrase = human.catchPhrase;
+   }
+   demo(subject){
+     return `Today we are learning about ${subject}`
+    }
+  grade(student, subject){
+    return `${student.name} receives a perfect score on ${subject}`
+   }
+ }
+ let student = {
+   name:"ricky",
+   age: 20,
+   location: "Atl",
+   specialty:"web development",
+   favLanguage: "spanish",
+   catchPhrase:"it's lit"
 
  }
+ const profe = new Instructor (student);
+ 
+ console.log("task 4: ",profe.demo('Math'));
+ console.log("task 4: ",profe.grade(student,'Math'));
+
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -111,7 +192,23 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
+ class Student extends Lambdasian{
+   constructor(human){
+     super (human)
+     this.previousBackground = human.previousBackground;
+     this.className = human.className;
+     this.favSubjects = human.favSubjects;
+   }
+   //Methods
+   listSubjects(){
+     return `Loving, ${this.favSubjects}!`
+   }
+   PRAssignment(subject){
+    return `${this.name} has submitted a PR for ${subject}`
+   }
+   sprintChallenge(subject){
+    return `${this.name} has begun sprint challenge on ${subject}`
+   }
      
  }
   
@@ -128,8 +225,18 @@ class Airplane {
           + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
           + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
   */
- class ProjectManager {
-     
+ class ProjectManager extends Instructor {
+     constructor(human){
+       super(human)
+      this.gradClassName = human.gradClassName;
+      this.favInstructor = human.favInstructor;
+     }
+     standUp(channel){
+      return `${this.name} announces to ${channel}, @channel standy times!`
+     }
+     debugsCode(student,subject){
+      return `${this.name} debugs ${student.name}'s code on ${subject}`
+     }
  }
   /*
     STRETCH PROBLEM (no tests!)
